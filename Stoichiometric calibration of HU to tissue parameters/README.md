@@ -45,5 +45,5 @@ in-house CT scanner and clinical scanning protocol.
   - Describes the chemical composition and mass density of each representative tissue.
 
 **5. GATE's files to calibrate HU to tisse parameters**
-    **- GEMINIDensitiesTable.mat**: generated file to calibrate HU to mass density.
-    **- GEMINIMaterialsTable.mat**: generated file to calibrate HU to chemical composition.
+   **- GEMINIDensitiesTable.mat**: generated file to calibrate HU to mass density.
+   **- GEMINIMaterialsTable.mat**: generated file to calibrate HU to chemical composition.
