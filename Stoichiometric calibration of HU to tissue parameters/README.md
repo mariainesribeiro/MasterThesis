@@ -23,7 +23,7 @@ in-house CT scanner and clinical scanning protocol.
 
 ## Files
 
-1. **Gemini_CT_Calibration.m** <-- main file
+1. **Gemini_CT_Calibration.m** <span style="color:red"><-- main file</span>
    - Fits k1 and k2 to parametrize the Gemini CT scanner with tissue substitutes
   in CATPHAN 604;
    - Computes HU according to the parametrized k1 and k2 values for:
