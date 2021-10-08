@@ -1,4 +1,4 @@
-# H1 Stoichiometric Calibration of HU to tissue parameters
+# Stoichiometric Calibration of HU to tissue parameters
 
 Converting CT numbers, in HU, to tissue parameters yields the input for MC-GATE
 dosimetry simulations that account for tissue heterogeneity.
@@ -13,7 +13,7 @@ function, effective x-ray energy, detector energy, scanner diameter, and image
 matrix size. Therefore, it is mandatory to obtain a calibration specific to the
 in-house CT scanner and clinical scanning protocol.
 
-The code developed in this folder aims to:
+**The code developed in this folder aims to:**
  1. Define a stoichiometric calibration of HU to tissue parameters for the CT
  component of the in-house Gemini scanner, using a tube voltage of 120 kV, 195
  mAs and a slice thickness of  1 mm;
