@@ -1,4 +1,4 @@
-#H1 Stoichiometric Calibration of HU to tissue parameters
+# H1 Stoichiometric Calibration of HU to tissue parameters
 
 Converting CT numbers, in HU, to tissue parameters yields the input for MC-GATE
 dosimetry simulations that account for tissue heterogeneity.
