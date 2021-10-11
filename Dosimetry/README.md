@@ -1,10 +1,10 @@
-# DOSIMETRY CALCULATIONS
+# Dosimetry Calculations
 
-The amount o Y90 activity to be administrated to a patient undergoing radioembolization
+In radioembolization, the activity of Y90 to be administrated to a patient 
 should be optimized through personalized dosimetry.
 
 **The code developed in this folder aims to:**
-   - Compute personalized absorbed dose distributions in RE scope following two DOSIMETRY
+   - Compute personalized absorbed dose distributions following two DOSIMETRY
 methods: voxel S-values and Monte Carlo (gold standard).
 
 *Read Section 4.4 in the thesis manuscript for more detailed information.*
