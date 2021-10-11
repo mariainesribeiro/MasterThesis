@@ -1,6 +1,6 @@
 # Stoichiometric Calibration of HU to tissue parameters
 
-Converting CT numbers, in HU, to tissue parameters yields the input for MC-GATE
+Converting CT numbers, in HU, to tissue parameters yields the input of MC-GATE
 dosimetry simulations that account for tissue heterogeneity.
 GATE requires a linear calibration of HU to mass density and a discrete
 calibration of HU to chemical composition.
@@ -19,11 +19,11 @@ in-house CT scanner and clinical scanning protocol.
  mAs and a slice thickness of  1 mm;
 - Generate GATE's input files based on the obtained calibration.
 
-*Read Section 4.2 for more detailed information.*
+*Read Section 4.2 in the thesis manuscript for more detailed information.*
 
 ## Files
 
-1. **Gemini_CT_Calibration.m** <span style="color: red"><-- main file</span>
+1. **Gemini_CT_Calibration.m** <-- main file
    - Fits k1 and k2 to parametrize the Gemini CT scanner with tissue substitutes
   in CATPHAN 604;
    - Computes HU according to the parametrized k1 and k2 values for:

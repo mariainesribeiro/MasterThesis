@@ -1,0 +1,130 @@
+#===============================================================================
+#V O X E L   S - V A L U E S   S I M U L A T I O N
+
+#Author: Maria Inês Ribeiro
+#Supervisors: Prof. João Cruz & Prof. Paulo Ferreira
+
+#===============================================================================
+
+#=====================================================
+# GEOMETRY
+#=====================================================
+
+
+/gate/geometry/setMaterialDatabase data/GateMaterials.db
+
+# WORLD
+/gate/world/geometry/setXLength                       1 m
+/gate/world/geometry/setYLength                       1 m
+/gate/world/geometry/setZLength                       1 m
+/gate/world/setMaterial                               Air
+
+# SOFT TISSUE BOX
+/gate/world/daughters/name                            soft_tissue
+/gate/world/daughters/insert                          box
+/gate/soft_tissue/geometry/setXLength 		          50. cm
+/gate/soft_tissue/geometry/setYLength 		          50. cm
+/gate/soft_tissue/geometry/setZLength 		          50. cm
+/gate/soft_tissue/placement/setTranslation            0 0 0 cm
+/gate/soft_tissue/setMaterial                         Soft_tissue
+/gate/soft_tissue/vis/setVisible                      1
+/gate/soft_tissue/vis/setColor                        blue
+
+
+#=====================================================
+# PHYSICS
+#=====================================================
+
+/gate/physics/addPhysicsList                          emstandard_opt3
+
+
+/gate/physics/setEMin                                 0.1 keV
+/gate/physics/setEMax                                 10 GeV
+#number of bins oh the DEDX table
+/gate/physics/setDEDXBinning                          220
+#number of bins of the mean free path table
+/gate/physics/setLambdaBinning                        220
+/gate/physics/processList                             Enabled
+/gate/physics/processList                             Initialized
+
+
+/gate/physics/Gamma/SetCutInRegion                    world 10 mm
+/gate/physics/Electron/SetCutInRegion                 world 10 mm
+/gate/physics/Positron/SetCutInRegion                 world 10 mm
+
+/gate/physics/Gamma/SetCutInRegion                    soft_tissue 20.0 mm
+/gate/physics/Electron/SetCutInRegion                 soft_tissue 0.0078 mm
+/gate/physics/Positron/SetCutInRegion                 soft_tissue 0.0078 mm
+
+/gate/physics/SetMaxStepSizeInRegion                  soft_tissue 0.11 mm
+/gate/physics/ActivateStepLimiter                     e-
+
+/gate/physics/SetMinKineticEnergyInRegion              soft_tissue 20. keV
+/gate/physics/ActivateSpecialCuts                      e-
+
+/gate/physics/SetMinKineticEnergyInRegion              soft_tissue 10. keV
+/gate/physics/ActivateSpecialCuts                      gamma
+
+/gate/physics/processes/PhotoElectric/setAugerElectron true
+/gate/physics/processes/PhotoElectric/setDeltaRayCut  10. keV 
+/gate/physics/processes/PhotoElectric/setXRayCut      10. keV
+/gate/physics/displayCuts
+
+#=====================================================
+# DETECTORS
+#=====================================================
+
+/gate/actor/addActor                                  DoseActor  doseinner
+/gate/actor/doseinner/save                            output/liver1.mhd
+/gate/actor/doseinner/attachTo    	                  soft_tissue
+/gate/actor/doseinner/stepHitType                     random
+/gate/actor/doseinner/setPosition                     0. 0. 0. cm
+/gate/actor/doseinner/setSize                         24.31 24.31 24.31 mm
+/gate/actor/doseinner/setResolution                   11 11 11 
+/gate/actor/doseinner/setDoseAlgorithm                MassWeighting
+/gate/actor/doseinner/enableDose                      true
+/gate/actor/doseinner/enableUncertaintyDose           true
+
+#SIMULATION STATISTIC =====================
+#this actos counts the number of steps, tracks, events, runs in the sumulation
+
+/gate/actor/addActor                               SimulationStatisticActor stat
+/gate/actor/stat/save                              output/stat-VSV.txt
+/gate/actor/stat/saveEveryNSeconds                 60
+
+
+#=====================================================
+# INITIALISATION
+#=====================================================
+
+/gate/run/initialize
+
+#=====================================================
+# SOURCE
+#=====================================================
+/gate/source/addSource                                Y90source gps
+/gate/source/Y90source/gps/particle                   e-
+/gate/source/Y90source/gps/energytype                 UserSpectrum
+/gate/source/Y90source/gps/setSpectrumFile data/90Yelectron-spectrum.txt
+
+
+
+/gate/source/Y90source/gps/pos/type                       Volume
+/gate/source/Y90source/gps/pos/shape                      Para
+/gate/source/Y90source/gps/pos/halfx                      1.105 mm
+/gate/source/Y90source/gps/pos/halfy                      1.105 mm
+/gate/source/Y90source/gps/pos/halfz                      1.105 mm
+/gate/source/Y90source/gps/pos/centre                     0 0 0 cm
+/gate/source/Y90source/gps/ang/type                    iso
+
+#=====================================================
+# START
+#=====================================================
+# JamesRandom Ranlux64 MersenneTwister
+/gate/random/setEngineName MersenneTwister
+/gate/random/setEngineSeed 1
+
+
+/gate/application/noGlobalOutput
+/gate/application/setTotalNumberOfPrimaries 100E6
+/gate/application/start

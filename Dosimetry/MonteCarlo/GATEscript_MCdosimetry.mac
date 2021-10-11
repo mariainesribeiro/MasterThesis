@@ -1,0 +1,185 @@
+#===============================================================================
+#R A D I O E M B O L I Z A T I O N      D O S I M E T R Y
+
+#Author: Maria Inês Ribeiro
+#Supervisors: Prof. João Cruz & Prof. Paulo Ferreira
+
+#===============================================================================
+
+#===============================================================================
+# VERBOSITY
+#===============================================================================
+
+/gate/verbose Physic    1
+/gate/verbose Cuts      1
+/gate/verbose SD        0
+/gate/verbose Actions   0
+/gate/verbose Actor     1
+/gate/verbose Step      0
+/gate/verbose Error     1
+/gate/verbose Warning   1
+/gate/verbose Output    0
+/gate/verbose Beam      0
+/gate/verbose Volume    0
+/gate/verbose Image     0
+/gate/verbose Geometry  2
+
+#===============================================================================
+# VISUALIZATION
+#===============================================================================
+
+#/control/execute /home/gate/Desktop/CCC74670/PLANNING/mac/visu.mac
+
+#===============================================================================
+# GEOMETRY
+#===============================================================================
+
+/gate/geometry/setMaterialDatabase                        data/GateMaterials.db
+
+# WORLD =====================================
+/gate/world/setMaterial                                   Air
+/gate/world/geometry/setXLength                           1 m
+/gate/world/geometry/setYLength                           1 m
+/gate/world/geometry/setZLength                           1 m 
+
+# VOXELIZED PATIENT PHANTOM =================
+
+#Generates the materials/ composition and density from HU 
+/gate/HounsfieldMaterialGenerator/SetMaterialTable                   data/GEMINIMaterialsTable.txt
+/gate/HounsfieldMaterialGenerator/SetDensityTable                    data/GEMINIDensitiesTable.txt
+/gate/HounsfieldMaterialGenerator/SetDensityTolerance                0.01 g/cm3
+/gate/HounsfieldMaterialGenerator/SetOutputMaterialDatabaseFilename  data/patient-HUmaterials.db
+/gate/HounsfieldMaterialGenerator/SetOutputHUMaterialFilename        data/patient-HU2mat.txt
+/gate/HounsfieldMaterialGenerator/Generate
+
+# Patient phantom
+/gate/world/daughters/name			                      patient
+/gate/world/daughters/insert		                      ImageNestedParametrisedVolume
+/gate/patient/geometry/setImage                           data/CT_SPECT_2p21.mhd
+/gate/geometry/setMaterialDatabase                        data/patient-HUmaterials.db
+/gate/patient/geometry/setHUToMaterialFile                data/patient-HU2mat.txt
+/gate/patient/geometry/TranslateTheImageAtThisIsoCenter   0. 0. 0. m
+
+
+#===============================================================================
+# PHYSICS
+#===============================================================================
+
+/gate/physics/addPhysicsList emstandard_opt3
+
+
+/gate/physics/setEMin 0.1 keV
+/gate/physics/setEMax 1 GeV
+/gate/physics/setDEDXBinning 220
+/gate/physics/setLambdaBinning 220
+/gate/physics/processList Enabled
+/gate/physics/processList Initialized
+
+
+/gate/physics/Gamma/SetCutInRegion      world 10 mm
+/gate/physics/Electron/SetCutInRegion   world 10 mm
+/gate/physics/Positron/SetCutInRegion   world 10 mm
+
+/gate/physics/Gamma/SetCutInRegion      patient 29.0 mm
+/gate/physics/Electron/SetCutInRegion   patient 0.0080 mm
+/gate/physics/Positron/SetCutInRegion   patient 0.0080 mm
+
+/gate/physics/processes/PhotoElectric/setDeltaRayCut     10.0 keV
+/gate/physics/processes/PhotoElectric/setXRayCut         10.0 keV
+
+/gate/physics/SetMinKineticEnergyInRegion              patient 20. keV
+/gate/physics/ActivateSpecialCuts                      e-
+/gate/physics/SetMinKineticEnergyInRegion              patient 10. keV
+/gate/physics/ActivateSpecialCuts                      gamma
+
+
+/gate/physics/SetMaxStepSizeInRegion patient 0.11 mm
+/gate/physics/ActivateStepLimiter e-
+
+/gate/physics/processes/PhotoElectric/setAugerElectron true
+/gate/physics/processes/PhotoElectric/setDeltaRayCut  10. keV 
+/gate/physics/processes/PhotoElectric/setXRayCut      10. keV
+/gate/physics/displayCuts
+
+#===============================================================================
+# DETECTORS
+#===============================================================================
+
+#DOSE ACTOR ==============================
+#builds 3D images of:
+#   - the energy deposited (edep in MeV)
+#   - dose deposited (Gy)
+#   - the number of hits in a five volume
+
+/gate/actor/addActor                                       DoseActor  CCC74670_PLANNING
+/gate/actor/CCC74670_PLANNING/attachTo    	               patient
+/gate/actor/CCC74670_PLANNING/stepHitType                  random
+/gate/actor/CCC74670_PLANNING/setVoxelSize                 2.21 2.21 2.21 mm
+/gate/actor/CCC74670_PLANNING/setPosition                  0. 0. 0. cm
+/gate/actor/CCC74670_PLANNING/setResolution                130. 110. 120.
+/gate/actor/CCC74670_PLANNING/setDoseAlgorithm             MassWeighting
+/gate/actor/CCC74670_PLANNING/enableEdep                   false
+/gate/actor/CCC74670_PLANNING/enableUncertaintyEdep        false
+/gate/actor/CCC74670_PLANNING/enableSquaredEdep            false
+/gate/actor/CCC74670_PLANNING/enableDose                   true
+/gate/actor/CCC74670_PLANNING/enableUncertaintyDose        true
+/gate/actor/CCC74670_PLANNING/enableSquaredDose            true
+/gate/actor/CCC74670_PLANNING/enableNumberOfHits           true
+/gate/actor/CCC74670_PLANNING/save                         output/CCC74670_PLANNING.mhd
+
+
+#SIMULATION STATISTIC =====================
+#this actos counts the number of steps, tracks, events, runs in the sumulation
+
+/gate/actor/addActor                               SimulationStatisticActor stat
+/gate/actor/stat/save                              output/stat-CCC74670_PLANNING.txt
+/gate/actor/stat/saveEveryNSeconds                 60   
+
+
+#===============================================================================
+# INITIALISATION
+#===============================================================================
+
+/gate/run/initialize
+
+/gate/random/setEngineName MersenneTwister
+/gate/random/setEngineSeed 2205202101
+
+
+#===============================================================================
+# SOURCE 
+#===============================================================================
+
+/gate/source/addSource                                            Y90Source voxel
+/gate/source/Y90Source/reader/insert                              image
+/gate/source/Y90Source/imageReader/translator/insert              linear
+## because the time-integrated spect image is expressed in MBq
+/gate/source/Y90Source/imageReader/linearTranslator/setScale      1. MBq
+
+/gate/source/Y90Source/imageReader/readFile                       data/SPECT_2p21.mhd
+/gate/source/Y90Source/imageReader/verbose                        1
+/gate/source/Y90Source/TranslateTheSourceAtThisIsoCenter          0 0 0 mm
+/gate/source/Y90Source/dump                                       1
+
+/gate/source/Y90Source/gps/particle e-
+/gate/source/Y90Source/gps/energytype UserSpectrum
+/gate/source/Y90Source/gps/setSpectrumFile data/90Yelectron-spectrum.txt
+/gate/source/Y90Source/gps/type     Volume
+/gate/source/Y90Source/gps/shape    Para
+/gate/source/Y90Source/gps/pos/halfx  1.105 mm
+/gate/source/Y90Source/gps/pos/halfy  1.105 mm
+/gate/source/Y90Source/gps/pos/halfz  1.105 mm
+/gate/source/Y90Source/gps/centre 0 0 0 cm
+/gate/source/Y90Source/gps/angtype  iso
+
+
+
+#=====================================================
+# START
+#=====================================================
+
+     
+/gate/application/setTotalNumberOfPrimaries             100e6
+                  
+/gate/application/start
+
