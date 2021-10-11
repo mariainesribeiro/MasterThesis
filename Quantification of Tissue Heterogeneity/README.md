@@ -3,7 +3,7 @@ The key difference between MC and VSV dosimetry is that the former considers tis
 Thus, the level of tissue heterogeneity predicts the variation between MC- and VSV-ADDs. As ADDs are the most relevant within the NLV and PTV to RE optimization, tissue heterogeneity was investigated within these VOIs.
 
 **The code developed in this folder aims to:**
-- Quantify tissue heterogeneity within the NLV and PTV according to the obtained HU calibration and patient-specific CT image.
+   - Quantify tissue heterogeneity within the NLV and PTV according to the obtained HU calibration and patient-specific CT image.
 
 **Files**
 
