@@ -6,7 +6,7 @@ This repository contains the code developed to support my master thesis project:
 Radioembolization Dosimetry Methods: S-values and Monte Carlo - GATE. Dissertation submitted in partial fulfillment of the requirements for the degree of Master of Science in Biomedical Engineering, Universidade Nova de Lisboa, NOVA School of Science and Technology.
 
 
-**Table of contents**
+## Table of contents
 1. Comparison of planning and verification ADDs;
 2. Comparison of VSV- and MC-ADDs;
 3. Dosimetry calculations:
