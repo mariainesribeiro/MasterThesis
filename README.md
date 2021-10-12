@@ -16,7 +16,7 @@ Feel free to hit me up with any question! Here is my email: *mid.ribeiro@campus.
 4. Quantification of tissue heterogeneity;
 5. Stoichiometric calibration of HU to tissue parameters.
 
-## Acknowledgment
+## Acknowledgments
 
 This project was supervised by:
  - Prof. Paulo Ferreira, Medical Physics Expert and Researcher, Nuclear Medicine Department, Champalimaud
