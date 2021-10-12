@@ -21,7 +21,7 @@ in-house CT scanner and clinical scanning protocol.
 
 *Read Section 4.2 in the thesis manuscript for more detailed information.*
 
-## Files
+## Folders and files
 
 1. **GATE's files to calibrate HU to tisse parameters**
    1. *GEMINIDensitiesTable.mat*: generated file to calibrate HU to mass density;

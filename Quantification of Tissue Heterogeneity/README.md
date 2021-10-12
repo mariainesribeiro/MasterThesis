@@ -7,7 +7,7 @@ Thus, the level of tissue heterogeneity predicts the variation between MC- and V
 
 *Read Section 4.3 in the thesis manuscript for more detailed information.*
 
-## Files
+## Folders and files
 1. *calibration.mat*: describes the poly-line calibration of HU to mass density, including the slope and y-intercept for every line connecting two consecutive representative tissues.
 
 2. *QuantificationTissueHeterogeneity.m* <-- main file
