@@ -27,7 +27,8 @@ in-house CT scanner and clinical scanning protocol.
    1. *GEMINIDensitiesTable.mat*: generated file to calibrate HU to mass density;
    2. *GEMINIMaterialsTable.mat*: generated file to calibrate HU to chemical composition.
 
-2. *CATPHAN604_data.mat*: describes the chemical composition and mass density of each tissue
+2. *CATPHAN604_data.mat*:
+    - Describes the chemical composition and mass density of each tissue
     substitute in CATPHAN 604, and reports the mean HU measured bu the Gemini CT
     scanner for each tissue substitute.
 
@@ -39,7 +40,9 @@ in-house CT scanner and clinical scanning protocol.
      - ICRP standard tissues, and
      - Representative tissues.
 
-4. *ICRP.mat*: describes the chemical composition and mass density of each ICRP standard
+4. *ICRP.mat*:
+   - Describes the chemical composition and mass density of each ICRP standard
    tissue.
 
-5. *representative_tissues.mat*: describes the chemical composition and mass density of each representative tissue.
+5. *representative_tissues.mat*:
+   - Describes the chemical composition and mass density of each representative tissue.
