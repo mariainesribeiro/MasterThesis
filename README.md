@@ -24,7 +24,7 @@ Centre for the Unknown, Champalimaud Foundation.
 -  Prof. João Cruz, Associate Professor, NOVA University Lisbon.
 
 With great insights from:
-- Prof. Durval Costa, Physician, Nuclear Medicine Department, Champalimaud
+- Prof. Durval Costa, Physician and Principal Researcher, Nuclear Medicine Department, Champalimaud
 Centre for the Unknown, Champalimaud Foundation.
-- Prof. Francisco Oliveira, Mathematician, Radiopharmacology Research Laboratory, Champalimaud
+- Prof. Francisco Oliveira, Mathematician, Nuclear Medicine Department, Champalimaud
 Centre for the Unknown, Champalimaud Foundation.
