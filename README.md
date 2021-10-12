@@ -22,6 +22,7 @@ This project was supervised by:
  - Prof. Paulo Ferreira, Medical Physics Expert and Researcher, Nuclear Medicine Department, Champalimaud
 Centre for the Unknown, Champalimaud Foundation.
 -  Prof. João Cruz, Associate Professor, NOVA University Lisbon.
+
 With great insights from:
 - Prof. Durval Costa, Physician, Nuclear Medicine Department, Champalimaud
 Centre for the Unknown, Champalimaud Foundation.
