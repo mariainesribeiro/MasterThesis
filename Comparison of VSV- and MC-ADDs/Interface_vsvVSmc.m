@@ -25,7 +25,7 @@ for patient = 1:6
     CT  = load_untouch_nii(strcat('Patients\', int2str(patient), '\CTs\', TreatmentStage,'-CT.nii'));
 
     % Loads VOI
-    VOI    = load_untouch_nii(strcat('Patients\', int2str(patient), '\VOIs\', VOI_name, '.nii');
+    VOI    = load_untouch_nii(strcat('Patients\', int2str(patient), '\VOIs\', VOI_name, '.nii'));
 
     % Selects voxels within the VOI
     VSV_ADD_array         = VSV.img(:);
@@ -39,8 +39,8 @@ for patient = 1:6
     meanDose(patient,:)   = [mean(VSV_ADD_VOI(:)) mean(MC_ADD_VOI(:))];
 
     % Computes mean HU and std HU within the VOI
-    meanHU(patient)       = mean(CT_VOI);
-    stdHU(patient)        = std(CT_VOI);
+    meanHU(patient)       = mean(single(CT_VOI));
+    stdHU(patient)        = std(single(CT_VOI));
 
 end
 

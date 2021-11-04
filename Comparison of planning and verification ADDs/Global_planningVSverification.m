@@ -16,11 +16,11 @@ DosimetryMethod = 'VSV';
 
 %% For each patient 
 
-for i = 1:6
+for patient = 1:6
     
     % Loads planning and verification ADDs
-    planningADD     = load_untouch_nii(strcat('Patients\', int2str(i), '\',DosimetryMethod,'\Planning-ADD.nii'));
-    verificationADD = load_untouch_nii(strcat('Patients\', int2str(i), '\',DosimetryMethod,'\Verification-ADD.nii'));
+    planningADD     = load_untouch_nii(strcat('Patients\', int2str(patient), '\',DosimetryMethod,'\Planning-ADD.nii'));
+    verificationADD = load_untouch_nii(strcat('Patients\', int2str(patient), '\',DosimetryMethod,'\Verification-ADD.nii'));
 
     % Loads VOI 
     VOI    = load_untouch_nii(strcat('Patients\', int2str(patient), '\VOIs\', VOI_name, '.nii'));
@@ -32,7 +32,7 @@ for i = 1:6
     verificationADD_VOI       = verificationADD_array(VOI.img(:)~=0);
     
     % Computed the mean D within the VOI
-    meanDose_VOI(i,:)         = [mean(planningADD_VOI(:)) mean(verificationADD_VOI(:))];
+    meanDose_VOI(patient,:)         = [mean(planningADD_VOI(:)) mean(verificationADD_VOI(:))];
 
 end
 

@@ -32,21 +32,21 @@ for patient = 1:6
     meanDose(patient,:)         = [mean(VSV_ADD_VOI(:)) mean(MC_ADD_VOI(:))];
     
     % Computes EUBED within the VOI
-    if VOI == 'PTV'
+    if VOI_name == 'PTV'
        % VSV
-       BED(patient,1)   = VSV_ADD_VOI + 1/10 * 2.5/(2.5+64.2) * VSV_ADD_VOI.^2;
-       EUBED(patient,1) = - 1/ 0.002 * log( sum( exp(- 0.002 *BED(patient,1)))/length(VSV_ADD_VOI));
+       BED   = VSV_ADD_VOI + 1/10 * 2.5/(2.5+64.2) * VSV_ADD_VOI.^2;
+       EUBED(patient,1) = - 1/ 0.002 * log( sum( exp(- 0.002 *BED))/length(VSV_ADD_VOI));
        % MC
-       BED(patient,2)   = MC_ADD_VOI + 1/10 * 2.5/(2.5+64.2) * MC_ADD_VOI.^2;
-       EUBED(patient,2) = - 1/ 0.002 * log( sum( exp(- 0.002 *BED(patient,2)))/length(MC_ADD_VOI));
+       BED   = MC_ADD_VOI + 1/10 * 2.5/(2.5+64.2) * MC_ADD_VOI.^2;
+       EUBED(patient,2) = - 1/ 0.002 * log( sum( exp(- 0.002 *BED))/length(MC_ADD_VOI));
     end
-    if VOI = 'NLV'
+    if VOI_name == 'NLV'
        % VSV
-       BED(patient,1) = VSV_ADD_VOI + 1/10 * 1.5/(1.5+64.2) * VSV_ADD_VOI.^2;
-       EUBED(patient,1) = - 1/ 0.004 * log( sum( exp(- 0.004 *BED(patient,1)))/length(VSV_ADD_VOI));
+       BED = VSV_ADD_VOI + 1/10 * 1.5/(1.5+64.2) * VSV_ADD_VOI.^2;
+       EUBED(patient,1) = - 1/ 0.004 * log( sum( exp(- 0.004 *BED))/length(VSV_ADD_VOI));
        % MC
-       BED(patient,2) = MC_ADD_VOI + 1/10 * 1.5/(1.5+64.2) * MC_ADD_VOI.^2;
-       EUBED(patient,2) = - 1/ 0.004 * log( sum( exp(- 0.004 *BED(patient,2)))/length(MC_ADD_VOI));
+       BED = MC_ADD_VOI + 1/10 * 1.5/(1.5+64.2) * MC_ADD_VOI.^2;
+       EUBED(patient,2) = - 1/ 0.004 * log( sum( exp(- 0.004 *BED))/length(MC_ADD_VOI));
     end
 end
 

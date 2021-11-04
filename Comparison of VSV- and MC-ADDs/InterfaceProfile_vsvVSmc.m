@@ -9,6 +9,9 @@
 %  Choose a treatment stage: Planning or Verification
 TreatmentStage = 'Planning';
 
+%  Choose a patient 
+patient = 1;
+
 %% Loads data 
 
 % Loads VSV- and MC-ADDs
@@ -19,7 +22,7 @@ MC   = load_untouch_nii(strcat('Patients\', int2str(patient), '\MC\', TreatmentS
 CT  = load_untouch_nii(strcat('Patients\', int2str(patient), '\CTs\', TreatmentStage,'-CT.nii'));
     
 % Loads profile volume
-VOI    = load_untouch_nii(strcat('Patients\', int2str(patient), '\VOIs\Profile.nii');
+VOI    = load_untouch_nii(strcat('Patients\', int2str(patient), '\VOIs\Profile.nii'));
 
 %% Selects voxels within the VOI
 

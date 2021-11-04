@@ -1,4 +1,4 @@
-function Y_volume = DVHcumulative(ADD,VOI)
+function [Y_volume, max_D] = DVHcumulative(ADD,VOI)
 %DVHCUMULATIVE computes the volume axis of the cumulative DVH
 %
 %   Input:
@@ -20,10 +20,10 @@ function Y_volume = DVHcumulative(ADD,VOI)
 %% Selects voxels within the VOI
 ADD_array = ADD.img(:);
 VOI_array = VOI.img(:);
-VOI_ADD_array = ADD_array(VOI_array(:)~=0);
+VOI_ADD_array = ADD_array(VOI_array(:)~=0)
 
 %% Computes the Y-volume axis of cumulative DVH
-max_D = int(max(VOI_ADD_array));
+max_D = max(VOI_ADD_array);
 VOI_vox = length(VOI_ADD_array);
 Y_volume = 0:max_D;
 for d = 0:max_D

@@ -14,11 +14,11 @@ VOI_name = 'NLV';
 DosimetryMethod = 'VSV';
 
 %% For each patient 
-for i = 1:6
+for patient = 1:6
     
     % Loads planning and verification ADDs
-    planningADD     = load_untouch_nii(strcat('Patients\', int2str(i), '\',DosimetryMethod,'\Planning-ADD.nii'));
-    verificationADD = load_untouch_nii(strcat('Patients\', int2str(i), '\',DosimetryMethod,'\Verification-ADD.nii'));
+    planningADD     = load_untouch_nii(strcat('Patients\', int2str(patient), '\',DosimetryMethod,'\Planning-ADD.nii'));
+    verificationADD = load_untouch_nii(strcat('Patients\', int2str(patient), '\',DosimetryMethod,'\Verification-ADD.nii'));
 
     % Loads VOI 
     VOI    = load_untouch_nii(strcat('Patients\', int2str(patient), '\VOIs\', VOI_name, '.nii'));
@@ -31,15 +31,16 @@ for i = 1:6
     data_VOI                  = [planningADD_VOI verificationADD_VOI];
 
     % Computes ICC 
-    icc(i)  =  ICC(data_VOI,'A-1',0.05,0);
+    icc(patient)  =  ICC(data_VOI,'A-1',0.05,0);
 
     % Computes PCC
-    pcc(i)  = corrcoef(data_VOI);
+    pcc_          = corrcoef(data_VOI);
+    pcc(patient)  = pcc_(2,1);
 
     % Computes the passing rate of the gamma-index test
     DD = 10;  % dose difference, in %
     DTA = 10; % distance to agreement, in mm
-    gamma_PR(i) = gammaIndexTest(planningADD, verificationADD, VOI, DD, DTA);
+    gamma_PR(patient) = gammaIndexTest(planningADD, verificationADD, VOI, DD, DTA);
     
 end
 
