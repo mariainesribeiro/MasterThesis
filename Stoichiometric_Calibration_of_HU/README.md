@@ -23,7 +23,7 @@ in-house CT scanner and clinical scanning protocol.
 
 ## Folders and files
 
-1. **GATE's files to calibrate HU to tisse parameters**
+1. **GATE's files**
    1. *GEMINIDensitiesTable.mat*: generated file to calibrate HU to mass density;
    2. *GEMINIMaterialsTable.mat*: generated file to calibrate HU to chemical composition.
 
